@@ -32,3 +32,9 @@
     - Start Redis Server
     - Connect to Redis Server
     - Create Redis Client
+
+
+## Some Improvements can be done
+
+    - Styling
+    - Delete the Room by creator
