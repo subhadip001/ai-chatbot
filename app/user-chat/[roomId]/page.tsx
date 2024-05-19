@@ -61,7 +61,7 @@ const Room = () => {
       <section className="h-full relative w-[50%] flex flex-col gap-5 mx-auto py-5 px-8 shadow-sm shadow-white rounded-md">
         <div>
           <span className="text-xl">Room Id: {roomId}</span>
-          <div className="py-5 h-[60vh] overflow-y-auto">
+          <div className="py-5 h-[60vh] overflow-y-auto userChatBox">
             {[...messages]?.reverse().map((msg, index, arr) => (
               <div
                 key={index}
