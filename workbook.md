@@ -27,8 +27,6 @@
             - Get all messages from Redis
 
 
-## Data Flow 
-
 
 
 ## Redis Setup
@@ -39,6 +37,7 @@
 
 
 ## Some Improvements can be done
-
+    - User Sign Up was not working hence simple username was used
+    - User Sign Up can be added
     - Styling
     - Delete the Room by creator
