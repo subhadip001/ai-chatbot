@@ -1,4 +1,4 @@
-# Startegy for Stateless Chat Room Using Redis
+# Strategy for Stateless Chat Room Using Redis
 
 ## Requirements
  - This app should allow user-to-user chat without using Socket.io, meaning it should be stateless.
@@ -26,6 +26,10 @@
         - Get Messages
             - Get all messages from Redis
 
+
+## Data Flow 
+
+    
 
 ## Redis Setup
     - Install Redis

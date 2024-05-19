@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useParams, useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 interface Message {
   from: string
@@ -17,6 +17,7 @@ const Room = () => {
   const username =
     typeof window !== 'undefined' ? localStorage.getItem('username') : null
   const router = useRouter()
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!roomId) return
@@ -34,6 +35,10 @@ const Room = () => {
     return () => clearInterval(intervalId)
   }, [roomId])
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   const sendMessage = async () => {
     if (!input.trim() || !username) return
     await fetch('/api/messages', {
@@ -43,7 +48,9 @@ const Room = () => {
       },
       body: JSON.stringify({ roomId, text: input, from: username })
     })
+    setMessages(prev => [...prev, { roomId, text: input, from: username }])
     setInput('')
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }
 
   const leaveRoom = () => {
@@ -54,13 +61,14 @@ const Room = () => {
       <section className="h-full relative w-[50%] flex flex-col gap-5 mx-auto py-5 px-8 shadow-sm shadow-white rounded-md">
         <div>
           <span className="text-xl">Room Id: {roomId}</span>
-          <div className="py-4 h-[60vh] overflow-y-auto">
-            {[...messages]?.reverse().map((msg, index) => (
+          <div className="py-5 h-[60vh] overflow-y-auto">
+            {[...messages]?.reverse().map((msg, index, arr) => (
               <div
                 key={index}
-                className={msg.from === username ? 'text-right' : msg.from}
-              >
-                {msg.from === username ? 'Me' : msg.from}: {msg.text}
+                className={msg.from === username ? 'text-right p-2' : " p-2"}
+                ref={index === arr.length - 1 ? messagesEndRef : null}
+                >
+                {msg.from === username ? 'You' : msg.from}: {msg.text}
               </div>
             ))}
           </div>
@@ -68,6 +76,7 @@ const Room = () => {
             <Input
               type="text"
               value={input}
+              placeholder='Type a message'
               onChange={e => setInput(e.target.value)}
               onKeyPress={e => {
                 if (e.key === 'Enter') sendMessage()
