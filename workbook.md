@@ -2,7 +2,7 @@
 
 ## Requirements
  - This app should allow user-to-user chat without using Socket.io, meaning it should be stateless.
- - A user can create a unique chat room and share the Room Id with another user to join and start chatting.
+ - A user can create a unique chat room and share the Room Id or the URL with another user to join and start chatting.
  - Utilize Redis for storing and managing chat data.
 
 ## Approach
@@ -19,7 +19,7 @@
             - Generate a unique Room Id
             - Store the Room Id in Redis
         - Join Chat Room
-            - Get Room Id from the user
+            - Get Room Id from the user or the URL
             - Check if the Room Id exists in Redis
         - Send Message
             - Store the message in Redis
@@ -29,7 +29,7 @@
 
 ## Data Flow 
 
-    
+
 
 ## Redis Setup
     - Install Redis
